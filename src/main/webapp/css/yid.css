@@ -38,7 +38,7 @@
 }
 .parse{
     width:90px;
-    height:90px;
+    height:70px;
     text-align: center;
     background-color: #DEDEDE;
     border: 0;
@@ -72,6 +72,9 @@
     --bs-btn-hover-bg: #EA0000;
     --bs-btn-active-bg:#EA0000;
     color: red;
+}
+.btnt:hover{
+    color: white;
 }
 .bb{
     display: inline;

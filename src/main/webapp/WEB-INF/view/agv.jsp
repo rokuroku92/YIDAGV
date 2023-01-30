@@ -14,7 +14,7 @@
         <style>
             ::-webkit-scrollbar{
                 display:none;
-            } 
+            }
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
@@ -23,22 +23,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
         <script>
-            // 選擇日期(稼動率)
-            $(function() {
-                $('#datepicker').datepicker({
-                    format:"yyyy-mm-dd",
-                    defaultDate:new Date()
-                });
-            });
-            $(function() {
-                $('#datepicker1').datepicker({
-                    format:"yyyy-mm-dd",
-                    defaultDate:new Date()
-                });
-            });
             var xhr = new XMLHttpRequest();
-            var baseUrl = 'http://localhost:8080${pageContext.request.contextPath}/mvc';
-//            var baseUrl = 'http://192.168.1.165:8080${pageContext.request.contextPath}/mvc';
+            var baseUrl = '${pageContext.request.contextPath}/mvc';
 
             window.onload = function(){
                 setInterval(getData, 1000);
@@ -311,25 +297,6 @@
                             </tbody>
                         </table>
                         <!--<button class="btn btn-link" style=" height: 30px;" onclick='window.open("http://localhost:8080${pageContext.request.contextPath}/mvc/agv/analysis");'>查看圖表資訊</button>-->
-                        <!--
-                        <p style=" font-size: 10px;">起算日期:</p>
-                            <div class="input-group date" id="datepicker">
-                            <input type="text" class="form-control" style=" width: 80px;">
-                            <span class="input-group-append">
-                                <span class="input-group-text bg-white">
-                                </span>
-                            </span>
-                            </div>
-                        
-                        <p style=" font-size: 10px;">結算日期:</p>
-                            <div class="input-group date" id="datepicker1">
-                            <input type="text" class="form-control" style=" width: 80px;">
-                            <span class="input-group-append">
-                                <span class="input-group-text bg-white">
-                                </span>
-                            </span>
-                            </div>
-                        -->
                     </fieldset>
                 </div>
             </div>
@@ -411,9 +378,9 @@
             </form>
             <br>
             <div class="row">
-                <div class="col-12" style="padding: 8px;background-color: pink;height: 30px;">
+<!--                <div class="col-12" style="padding: 8px;background-color: pink;height: 30px;">
                     <marquee><p id="message"><nobr>系統訊息:無錯誤</nobr></p></marquee>
-                </div>
+                </div>-->
             </div>
         <br>
     </body>

@@ -19,6 +19,12 @@ public class AnalysisDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Analysis.class));
     }
     
+    public List<Analysis> queryAnalysisesRecently(){
+        String sql = "select * from (select a.analysis_id, a.year, a.month, a.day, a.working_hours, a.open_hours, a.task " +
+                     "from analysis a order by a.analysis_id DESC LIMIT 14)a order by analysis_id";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Analysis.class));
+    }
+    
     public List<Analysis> queryAnalysisesByYearAndMonth(Integer year, Integer month){
         String sql = "select a.analysis_id, a.year, a.month, a.day, a.working_hours, a.open_hours, a.task " +
                      "from analysis a where year=? and month=? order by day";

@@ -10,6 +10,7 @@ public class Place {
     private static Map<Integer, int[]> map = new LinkedHashMap<>();
     static {
         int deltaX = 0, deltaY = 0;
+        map.put(1001, new int[]{850+deltaX, 90+deltaY});
         map.put(1002, new int[]{850+deltaX, 135+deltaY});
         map.put(1003, new int[]{850+deltaX, 180+deltaY});
         map.put(1004, new int[]{690+deltaX, 180+deltaY});

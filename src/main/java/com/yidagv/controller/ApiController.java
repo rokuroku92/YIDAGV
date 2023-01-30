@@ -44,15 +44,14 @@ public class ApiController {
     public String queryAnalysisesByYearAndMonth(@RequestParam("value") String value){
         // value=202212, 202301, recently
         Integer year, month;
-        Calendar calendar = Calendar.getInstance();
+        List<Analysis> list = null;
         if(value.equals("recently")){
-            year = calendar.get(Calendar.YEAR);
-            month = calendar.get(Calendar.MONTH) + 1;
+            list = analysisService.queryAnalysisesRecently();
         }else{
             year = Integer.valueOf(value.substring(0,4));
             month = Integer.valueOf(value.substring(4,6));
+            list = analysisService.queryAnalysisesByYearAndMonth(year, month);
         }
-        List<Analysis> list = analysisService.queryAnalysisesByYearAndMonth(year, month);
         return gson.toJson(list);
     }
 }

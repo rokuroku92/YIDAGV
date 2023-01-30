@@ -17,6 +17,10 @@ public class AnalysisService {
         return analysisDao.queryAnalysises();
     }
     
+    public List<Analysis> queryAnalysisesRecently(){
+        return analysisDao.queryAnalysisesRecently();
+    }
+    
     public List<Analysis> queryAnalysisesByYearAndMonth(Integer year, Integer month){
         // 參數檢查
         if(year<2022 || month < 1 || month > 12) return null;
