@@ -88,7 +88,10 @@
                                                         <th scope="col">任務數</th>
                                                         <th scope="col">稼動率</th>
                                                         <th scope="col">工作時數</th>
-                                                        <th scope="col"></th>
+                                                        <th>
+                                                            <input type="checkbox" id="checkAll"/>
+                                                        </th>
+                                                        <!--<th scope="col"></th>-->
                                                     </tr>
                                                 </thead>
                                                 <tbody id="pt">
@@ -97,8 +100,14 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                                      <button type="button" class="btn btn-primary" onclick="printOut('printt')">列印</button>
+                                        <div>
+                                            <input type="checkbox" id="cancelweekend">
+                                            <label for="flexCheckChecked">
+                                                取消選取六日
+                                            </label>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                        <button type="button" class="btn btn-primary" onclick="printOut('printt')">列印</button>
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +138,9 @@
             </div>
         </div>
         <!-- JavaScript Bundle with Popper -->
+        <script src="${pageContext.request.contextPath}/js/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="${pageContext.request.contextPath}/js/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
         <script src="${pageContext.request.contextPath}/js/feather.min.js"
                 integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
@@ -203,37 +215,41 @@
                     open_sum += data[i].openHours;
                     if(data[i].task>0)x++;
                     let week = "";
+                    let datawd = "";
                     switch(data[i].week){
                         case 1:
                             week = "(一)";
+                            datawd = "f";
                             break;
                         case 2:
                             week = "(二)";
+                            datawd = "f";
                             break;
                         case 3:
                             week = "(三)";
+                            datawd = "f";
                             break;
                         case 4:
                             week = "(四)";
+                            datawd = "f";
                             break;
                         case 5:
                             week = "(五)";
+                            datawd = "f";
                             break;
                         case 6:
                             week = "(六)";
+                            datawd = "t";
                             break;
                         case 7:
                             week = "(日)";
+                            datawd = "t";
                             break;
                     }
                     // 列印之表格
                     html += "<tr id=\""+data[i].month.toString()+data[i].day.toString()+"\"><th scope=\"row\">"+data[i].month + '/' + data[i].day+week+"</th><td>"+data[i].task+"</td><td>"+
                             ((data[i].workingHours/data[i].openHours)*100).toString().substring(0,2)+"%</td><td>"+data[i].workingHours+"</td>"+
-                            "<td><button type=\"button\" class=\"btn btnt\" onclick=\"removeTaskById("+data[i].month.toString()+data[i].day.toString()+")\">"+
-                            "<svg xmlns=\"${pageContext.request.contextPath}/image/trash.svg\" width=\"26\" height=\"16\" fill=\"currentColor\" class=\"bi bi-trash dell\" viewBox=\"0 0 16 16\">"+
-                            "<path d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z\"/>"+
-                            "<path fill-rule=\"evenodd\" d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z\"/>"+
-                            "</svg></button></td></tr>";  // evenodd
+                            "<td><input class=\"hh\" data-wd=\""+datawd+"\" type=\"checkbox\" id=\""+data[i].month.toString()+data[i].day.toString()+"d\"/></td></th>";
                 }
                 myChart.update();
                 document.getElementById("task_sum").value = task_sum;
@@ -242,9 +258,47 @@
                 document.getElementById("work").value = String(work_sum/x).substring(0,4)+"hr";
                 document.getElementById("pt").innerHTML = html;
                 console.log(myChart.data);
+                // 選取方塊
+                $(function(){
+                    // 全選 or 全取消
+                    $('#checkAll').click(function(event) {
+                        var tr_checkbox = $('table tbody tr').find('input[type=checkbox]');
+                        tr_checkbox.prop('checked', $(this).prop('checked'));
+                        // 阻止向上冒泡，以防再次觸發點擊操作
+                        event.stopPropagation();
+                    });
+                    $('#cancelweekend').click(function(event) {
+                        var tr_checkbox = $('table tbody tr').find('input[data-wd="t"]');
+                        tr_checkbox.prop('checked', !$(this).prop('checked'));
+                        var tbr = $('table tbody tr');
+                        var tbrr = $('.hh');
+                        $('#checkAll').prop('checked', tbr.find('input[type=checkbox]:checked').length == tbrr.length ? true : false);
+                        // 阻止向上冒泡，以防再次觸發點擊操作
+                        event.stopPropagation();
+                    });
+                    // 點擊表格每一行的checkbox，表格所有選中的checkbox數 = 表格行數時，則將表頭的‘checkAll’單選框置為選中，否則置為未選中
+                    $('table tbody tr').find('input[type=checkbox]').click(function(event) {
+                        var tbr = $('table tbody tr');
+                        var tbrr = $('.hh');
+                        $('#checkAll').prop('checked', tbr.find('input[type=checkbox]:checked').length == tbrr.length ? true : false);
+                        // 阻止向上冒泡，以防再次觸發點擊操作
+                        event.stopPropagation();
+                    });
+                    // 點擊表格行(行内任意位置)，觸發選中或取消選中該行的checkbox
+                    $('table tbody tr').click(function() {
+                        $(this).find('input[type=checkbox]').click();
+                    });
+
+                });
             }
             //  列印
             function printOut(divId) {
+                $('.hh').each(function(index, elem) {
+                    if (!$(elem).prop('checked')) {
+                      console.log($(this));
+                      $(this).parent().parent().remove();
+                    }
+                });
                 var printOutContent = document.getElementById(divId).innerHTML;
                 var printOutContent1 = document.getElementById("summ").innerHTML;
                 document.body.innerHTML = printOutContent+printOutContent1;
@@ -275,9 +329,7 @@
                 window.print();
                 window.location.reload();
             }
-            function removeTaskById(id){
-                document.getElementById(id).innerHTML="";
-            }
+            
         </script>
         
     </body>
