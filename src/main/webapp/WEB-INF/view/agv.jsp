@@ -274,7 +274,7 @@
                     <fieldset>
                         <legend style=" padding: 5px;font-size: 18px;">
                             效益分析
-                            <a href="http://localhost:8080${pageContext.request.contextPath}/mvc/agv/analysis?mode=recently">
+                            <a href="${pageContext.request.contextPath}/mvc/agv/analysis?mode=recently">
                                 <img style="float: right;" src="${pageContext.request.contextPath}/image/chart.png" title="統計圖表" border="0" width="40">
                             </a>
                         </legend>
