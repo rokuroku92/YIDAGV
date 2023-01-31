@@ -163,6 +163,7 @@
                             mm = (mm.length == 1) ? '0'+mm : mm;
                             html+="<li><a class=\"dropdown-item\" onclick=\"reSet("+yyyy+mm+")\">"+data[i].year+"/"+data[i].month+"</a></li>";
                         }
+                        html+="<li><a class=\"dropdown-item\" onclick=\"reSet('all')\">全部</a></li>";
                         document.getElementById("yearsandmonths").innerHTML = html;
                         reSet('recently');
                     }

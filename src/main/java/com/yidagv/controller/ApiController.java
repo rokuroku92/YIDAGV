@@ -45,12 +45,18 @@ public class ApiController {
         // value=202212, 202301, recently
         Integer year, month;
         List<Analysis> list = null;
-        if(value.equals("recently")){
-            list = analysisService.queryAnalysisesRecently();
-        }else{
-            year = Integer.valueOf(value.substring(0,4));
-            month = Integer.valueOf(value.substring(4,6));
-            list = analysisService.queryAnalysisesByYearAndMonth(year, month);
+        switch (value) {
+            case "recently":
+                list = analysisService.queryAnalysisesRecently();
+                break;
+            case "all":
+                list = analysisService.queryAnalysises();
+                break;
+            default:
+                year = Integer.valueOf(value.substring(0,4));
+                month = Integer.valueOf(value.substring(4,6));
+                list = analysisService.queryAnalysisesByYearAndMonth(year, month);
+                break;
         }
         return gson.toJson(list);
     }
