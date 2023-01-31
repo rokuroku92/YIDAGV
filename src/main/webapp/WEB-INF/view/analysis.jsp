@@ -107,29 +107,31 @@
                                             </label>
                                         </div>
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                                        <button type="button" class="btn btn-primary" onclick="printOut('printt')">列印</button>
+                                        <button type="button" class="btn btn-primary" onclick="printOut()">列印</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>    
                     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-                    <div id="summ" class="col-8 card" style="background-color: #ffffff;opacity: .8;">
+                    <div id="summ" class="col-9 card" style="background-color: #ffffff;opacity: .8;">
                         <table class="table table-borderless" style=" align-items: center;text-align: center;">
                             <thead>
                                 <tr>
                                     <th>總任務數量</th>
                                     <th>平均任務數</th>
-                                    <th>平均稼動率</th>
+                                    <th>總工作時數</th>
                                     <th>平均工作時數</th>
+                                    <th>平均稼動率</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr style=" font-size: 25px">
                                     <td><p><input class="parse" type="text" id="task_sum" readonly/></p></td>
                                     <td><p><input class="parse" type="text" id="task" readonly/></p></td>
-                                    <td><p><input class="parse" type="text" id="rate" readonly/></p></td>
+                                    <td><p><input class="parse" type="text" id="work_sum" readonly/></p></td>
                                     <td><p><input class="parse" type="text" id="work" readonly/></p></td>
+                                    <td><p><input class="parse" type="text" id="rate" readonly/></p></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -197,11 +199,6 @@
                 var work_sum = 0;
                 var open_sum = 0;
                 var x=0;
-//                for(let i=0;i<len;i++){
-//                    myChart.data.labels.pop();
-//                    myChart.data.datasets[0].data.pop();
-//                    myChart.data.datasets[1].data.pop();
-//                }
                 myChart.data.labels = [];
                 myChart.data.datasets[0].data = [];
                 myChart.data.datasets[1].data = [];
@@ -254,8 +251,9 @@
                 myChart.update();
                 document.getElementById("task_sum").value = task_sum;
                 document.getElementById("task").value = String((task_sum/x)*100).substring(0,2);
-                document.getElementById("rate").value = String((work_sum/open_sum)*100).substring(0,2)+"%";
+                document.getElementById("work_sum").value = String(work_sum)+"hr";
                 document.getElementById("work").value = String(work_sum/x).substring(0,4)+"hr";
+                document.getElementById("rate").value = String((work_sum/open_sum)*100).substring(0,2)+"%";
                 document.getElementById("pt").innerHTML = html;
                 console.log(myChart.data);
                 // 選取方塊
@@ -292,14 +290,15 @@
                 });
             }
             //  列印
-            function printOut(divId) {
+            function printOut() {
                 $('.hh').each(function(index, elem) {
                     if (!$(elem).prop('checked')) {
                       console.log($(this));
                       $(this).parent().parent().remove();
                     }
                 });
-                var printOutContent = document.getElementById(divId).innerHTML;
+                $('input[type=checkbox]').remove();
+                var printOutContent = document.getElementById("printt").innerHTML;
                 var printOutContent1 = document.getElementById("summ").innerHTML;
                 document.body.innerHTML = printOutContent+printOutContent1;
                 var table = document.getElementById("pt");
@@ -324,8 +323,9 @@
                 console.log("open_sum "+open_sum);
                 document.getElementById("task_sum").value = task_sum;
                 document.getElementById("task").value = String((task_sum/len)*100).substring(0,2);
-                document.getElementById("rate").value = String((rate_sum/len)*100).substring(0,2)+"%";
+                document.getElementById("work_sum").value = String(open_sum)+"hr";
                 document.getElementById("work").value = String(open_sum/len).substring(0,4)+"hr";
+                document.getElementById("rate").value = String((rate_sum/len)*100).substring(0,2)+"%";
                 window.print();
                 window.location.reload();
             }

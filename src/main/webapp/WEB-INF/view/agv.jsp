@@ -192,32 +192,6 @@
                 }
                 document.getElementById('noticestationText').value = noText;
             }
-
-            /*
-            // 監聽按鈕(實作將選擇的按鈕放入確認列)
-            const cbtns = document.querySelectorAll(".st");
-            const cbtns1 = document.querySelectorAll(".st1");
-
-            function doit() {
-                document.getElementById("ststation").value = this.id;
-            }
-
-            function doit1() {
-                document.getElementById("noticestation").value = this.id;
-            }
-
-            cbtns.forEach(
-              function(cbtn) {
-               cbtn.addEventListener("click", doit,false);
-              }
-            );
-
-            cbtns1.forEach(
-              function(cbtn1) {
-               cbtn1.addEventListener("click", doit1,false);
-              }
-            );
-            */
             // 紀錄確認列與發送
             function subm(){
             //                alert("http://192.168.1.246:20100/task0=1&1&"+ststation+"&"+noticestation+"&"+ststation);
