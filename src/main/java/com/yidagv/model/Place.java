@@ -9,7 +9,7 @@ public class Place {
     private int[] coordinate; // left, top (x, y) 的資訊
     private static Map<Integer, int[]> map = new LinkedHashMap<>();
     static {
-        int deltaX = 0, deltaY = 0;
+        int deltaX = 13, deltaY = -5;
         map.put(1001, new int[]{850+deltaX, 90+deltaY});
         map.put(1002, new int[]{850+deltaX, 135+deltaY});
         map.put(1003, new int[]{850+deltaX, 180+deltaY});
@@ -18,8 +18,8 @@ public class Place {
         map.put(1006, new int[]{530+deltaX, 135+deltaY});
         map.put(1007, new int[]{530+deltaX, 90+deltaY});
         map.put(1008, new int[]{260+deltaX, 60+deltaY});
-        map.put(1009, new int[]{90+deltaX, 60+deltaY});
-        map.put(1010, new int[]{90+deltaX, 120+deltaY});
+        map.put(1009, new int[]{100+deltaX, 60+deltaY});
+        map.put(1010, new int[]{100+deltaX, 120+deltaY});
     }
     
     public Place(int id) {

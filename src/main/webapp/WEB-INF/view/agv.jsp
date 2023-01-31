@@ -79,7 +79,7 @@
                 document.getElementById("place").value = data.place.id;  // 目前位置
                 document.getElementById("battery").value = data.battery+"%";  // 目前電壓
                 // 放車子
-                document.getElementById("agv_car").innerHTML = '<img src=\"${pageContext.request.contextPath}/image/car.png\" width=\"80\" ' +
+                document.getElementById("agv_car").innerHTML = '<img src=\"${pageContext.request.contextPath}/image/icon_mp.png\" width=\"50\" ' +
                                                                'style=\"position: absolute;left: ' + data.place.coordinate[0] + 'px;top: ' + data.place.coordinate[1] + 'px;z-index: 10\" />';
                 // 清除佇列任務
                 document.getElementById('task_body').innerHTML = '';

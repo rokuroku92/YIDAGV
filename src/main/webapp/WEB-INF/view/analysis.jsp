@@ -59,16 +59,12 @@
                                 </ul>
                             </div>
                         </div>
-<!--                        <form>
-                            <div class="nativeDatePicker">
-                                <label for="bday">Enter your day:</label>
-                                <input type="date" id="bday" name="bday"/>
-                                <span class="validity"></span>
-                            </div>
-                        </form>-->
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                          列印表單
+                            列印表單
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="myexcel()">
+                            匯出成Excel
                         </button>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -80,7 +76,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div id="printt">
-                                            <img src="${pageContext.request.contextPath}/image/logo.png" alt="image error" border="0">
+                                            <img src="${pageContext.request.contextPath}/image/logo.png" alt="image error" border="0" id="logog">
                                             <table id="va" class="table">
                                                 <thead>
                                                     <tr>
@@ -89,9 +85,8 @@
                                                         <th scope="col">稼動率</th>
                                                         <th scope="col">工作時數</th>
                                                         <th>
-                                                            <input type="checkbox" id="checkAll"/>
+                                                            <input type="checkbox" id="checkAll" checked/>
                                                         </th>
-                                                        <!--<th scope="col"></th>-->
                                                     </tr>
                                                 </thead>
                                                 <tbody id="pt">
@@ -194,7 +189,7 @@
             }
             
             function test(data) {
-                var len = myChart.data.labels.length;
+//                var len = myChart.data.labels.length;
                 var task_sum = 0;
                 var work_sum = 0;
                 var open_sum = 0;
@@ -246,7 +241,7 @@
                     // 列印之表格
                     html += "<tr id=\""+data[i].month.toString()+data[i].day.toString()+"\"><th scope=\"row\">"+data[i].month + '/' + data[i].day+week+"</th><td>"+data[i].task+"</td><td>"+
                             ((data[i].workingHours/data[i].openHours)*100).toString().substring(0,2)+"%</td><td>"+data[i].workingHours+"</td>"+
-                            "<td><input class=\"hh\" data-wd=\""+datawd+"\" type=\"checkbox\" id=\""+data[i].month.toString()+data[i].day.toString()+"d\"/></td></th>";
+                            "<td><input class=\"hh\" data-wd=\""+datawd+"\" type=\"checkbox\" id=\""+data[i].month.toString()+data[i].day.toString()+"d\" checked/></td></th>";
                 }
                 myChart.update();
                 document.getElementById("task_sum").value = task_sum;
@@ -298,6 +293,7 @@
                     }
                 });
                 $('input[type=checkbox]').remove();
+                
                 var printOutContent = document.getElementById("printt").innerHTML;
                 var printOutContent1 = document.getElementById("summ").innerHTML;
                 document.body.innerHTML = printOutContent+printOutContent1;
@@ -329,7 +325,15 @@
                 window.print();
                 window.location.reload();
             }
-            
+            function myexcel(){
+                $('input[type=checkbox]').remove();
+                $('#logog').remove();
+                var html = '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8" /><title>Excel</title>';
+                html += '';
+                html += document.getElementById('printt').innerHTML + '';
+                window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+                window.location.reload();
+            }
         </script>
         
     </body>
