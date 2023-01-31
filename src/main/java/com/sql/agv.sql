@@ -33,7 +33,7 @@ INSERT INTO `analysis`(`year`,`month`,`day`,`week`,`working_hours`,`open_hours`,
 INSERT INTO `analysis`(`year`,`month`,`day`,`week`,`working_hours`,`open_hours`,`task`) VALUES(2022,11,18,5,10,14,38);
 INSERT INTO `analysis`(`year`,`month`,`day`,`week`,`working_hours`,`open_hours`,`task`) VALUES(2022,11,19,6,6,14,23);
 INSERT INTO `analysis`(`year`,`month`,`day`,`week`,`working_hours`,`open_hours`,`task`) VALUES(2022,11,20,7,11,14,40);
-INSERT INTO `analysis`(`year`,`month`,`day`,`week`,`working_hours`,`open_hours`,`task`) VALUES(2022,11,21,1,20,14,38);
+INSERT INTO `analysis`(`year`,`month`,`day`,`week`,`working_hours`,`open_hours`,`task`) VALUES(2022,11,21,1,9,14,38);
 INSERT INTO `analysis`(`year`,`month`,`day`,`week`,`working_hours`,`open_hours`,`task`) VALUES(2022,11,22,2,13,14,55);
 INSERT INTO `analysis`(`year`,`month`,`day`,`week`,`working_hours`,`open_hours`,`task`) VALUES(2022,11,23,3,12,14,45);
 INSERT INTO `analysis`(`year`,`month`,`day`,`week`,`working_hours`,`open_hours`,`task`) VALUES(2022,11,24,4,10,14,32);

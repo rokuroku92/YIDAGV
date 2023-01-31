@@ -84,6 +84,7 @@
                                                         <th scope="col">任務數</th>
                                                         <th scope="col">稼動率</th>
                                                         <th scope="col">工作時數</th>
+                                                        <th scope="col">開機時數</th>
                                                         <th>
                                                             <input type="checkbox" id="checkAll" checked/>
                                                         </th>
@@ -135,20 +136,14 @@
             </div>
         </div>
         <!-- JavaScript Bundle with Popper -->
-        <script src="${pageContext.request.contextPath}/js/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="${pageContext.request.contextPath}/js/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-        <script src="${pageContext.request.contextPath}/js/feather.min.js"
-                integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-                crossorigin="anonymous"></script>
-        <script src="${pageContext.request.contextPath}/js/Chart.min.js"
-                integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-                crossorigin="anonymous"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery-3.4.1.slim.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/feather.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/Chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/dashboard.js"></script>
         <script>
-//            const nativePicker = document.querySelector('.nativeDatePicker');
-//            console.log(nativePicker.value);
             function init(){
                 getYearsAndMonths();
             }
@@ -240,7 +235,7 @@
                     }
                     // 列印之表格
                     html += "<tr id=\""+data[i].month.toString()+data[i].day.toString()+"\"><th scope=\"row\">"+data[i].month + '/' + data[i].day+week+"</th><td>"+data[i].task+"</td><td>"+
-                            ((data[i].workingHours/data[i].openHours)*100).toString().substring(0,2)+"%</td><td>"+data[i].workingHours+"</td>"+
+                            ((data[i].workingHours/data[i].openHours)*100).toString().substring(0,2)+"%</td><td>"+data[i].workingHours+"</td><td>"+data[i].openHours+"</td>"+
                             "<td><input class=\"hh\" data-wd=\""+datawd+"\" type=\"checkbox\" id=\""+data[i].month.toString()+data[i].day.toString()+"d\" checked/></td></th>";
                 }
                 myChart.update();
@@ -321,7 +316,7 @@
                 document.getElementById("task").value = String((task_sum/len)*100).substring(0,2);
                 document.getElementById("work_sum").value = String(open_sum)+"hr";
                 document.getElementById("work").value = String(open_sum/len).substring(0,4)+"hr";
-                document.getElementById("rate").value = String((rate_sum/len)*100).substring(0,2)+"%";
+                document.getElementById("rate").value = String(Math.round(rate_sum/len)).substring(0,2)+"%";
                 window.print();
                 window.location.reload();
             }
