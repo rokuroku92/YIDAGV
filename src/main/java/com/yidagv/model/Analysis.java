@@ -5,6 +5,7 @@ public class Analysis {
     private Long year;
     private Long month;
     private Long day;
+    private Long week;
     private Long workingHours;
     private Long openHours;
     private Long task;
@@ -41,6 +42,14 @@ public class Analysis {
         this.day = day;
     }
 
+    public Long getWeek() {
+        return week;
+    }
+
+    public void setWeek(Long week) {
+        this.week = week;
+    }
+    
     public Long getWorkingHours() {
         return workingHours;
     }

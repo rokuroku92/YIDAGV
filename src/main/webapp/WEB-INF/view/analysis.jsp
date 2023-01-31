@@ -202,8 +202,32 @@
                     work_sum += data[i].workingHours;
                     open_sum += data[i].openHours;
                     if(data[i].task>0)x++;
+                    let week = "";
+                    switch(data[i].week){
+                        case 1:
+                            week = "(一)";
+                            break;
+                        case 2:
+                            week = "(二)";
+                            break;
+                        case 3:
+                            week = "(三)";
+                            break;
+                        case 4:
+                            week = "(四)";
+                            break;
+                        case 5:
+                            week = "(五)";
+                            break;
+                        case 6:
+                            week = "(六)";
+                            break;
+                        case 7:
+                            week = "(日)";
+                            break;
+                    }
                     // 列印之表格
-                    html += "<tr id=\""+data[i].month.toString()+data[i].day.toString()+"\"><th scope=\"row\">"+data[i].month + '/' + data[i].day+"</th><td>"+data[i].task+"</td><td>"+
+                    html += "<tr id=\""+data[i].month.toString()+data[i].day.toString()+"\"><th scope=\"row\">"+data[i].month + '/' + data[i].day+week+"</th><td>"+data[i].task+"</td><td>"+
                             ((data[i].workingHours/data[i].openHours)*100).toString().substring(0,2)+"%</td><td>"+data[i].workingHours+"</td>"+
                             "<td><button type=\"button\" class=\"btn btnt\" onclick=\"removeTaskById("+data[i].month.toString()+data[i].day.toString()+")\">"+
                             "<svg xmlns=\"${pageContext.request.contextPath}/image/trash.svg\" width=\"26\" height=\"16\" fill=\"currentColor\" class=\"bi bi-trash dell\" viewBox=\"0 0 16 16\">"+
