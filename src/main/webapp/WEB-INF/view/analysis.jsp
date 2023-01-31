@@ -97,7 +97,7 @@
                                     <div class="modal-footer">
                                         <div>
                                             <input type="checkbox" id="cancelweekend">
-                                            <label for="flexCheckChecked">
+                                            <label for="cancelweekend">
                                                 取消選取六日
                                             </label>
                                         </div>
