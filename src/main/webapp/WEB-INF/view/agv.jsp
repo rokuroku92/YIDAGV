@@ -27,7 +27,10 @@
             var baseUrl = '${pageContext.request.contextPath}/mvc';
 
             window.onload = function(){
+                getData();
+                getData1();
                 setInterval(getData, 1000);
+                setInterval(getData1, 10000);
             };
 
             function getData() {
@@ -38,6 +41,17 @@
                         var data = JSON.parse(this.responseText);
                         console.log(data);
                         update(data);
+                    }
+                };
+            }
+            function getData1(){
+                xhr.open('GET', baseUrl + "/api/analysis/mode?value=all", true);
+                xhr.send();
+                xhr.onload = function(){
+                    if(xhr.status == 200){
+                        var data = JSON.parse(this.responseText);
+                        console.log(data);
+                        test(data);
                     }
                 };
             }
@@ -204,7 +218,22 @@
                 document.getElementById("noticestation").value = "";
                 document.getElementById("noticestationText").value = "";
             }
-
+            function test(data) {
+                var task_sum = 0;
+                var work_sum = 0;
+                var open_sum = 0;
+                var x=0;
+                for(let i=0 ; i < data.length ; i++) {
+                    task_sum += data[i].task;
+                    work_sum += data[i].workingHours;
+                    open_sum += data[i].openHours;
+                    if(data[i].task>0)x++;
+                }
+                document.getElementById("work_sum").value = String(work_sum)+"hr";
+                document.getElementById("open_sum").value = String(open_sum)+"hr";
+                document.getElementById("rate").value = String((work_sum/open_sum)*100).substring(0,2)+"%";
+                document.getElementById("task_sum").value = task_sum;
+            }
         </script>
     </head>
     <body background="${pageContext.request.contextPath}/image/bgimg.jpg" style="padding: 20px;line-height: 10px;">
@@ -263,10 +292,10 @@
                             </thead>
                             <tbody>
                                 <tr style=" font-size: 25px">
-                                    <td><p><input class="parse" type="text" value="359" readonly/></p></td>
-                                    <td><p><input class="parse" type="text" value="370" readonly/></p></td>
-                                    <td><p><input class="parse" type="text" value="97%" readonly/></p></td>
-                                    <td><p><input class="parse" type="text" value="138" readonly/></p></td>
+                                    <td><p><input class="parse" id="work_sum" type="text" readonly/></p></td>
+                                    <td><p><input class="parse" id="open_sum" type="text" readonly/></p></td>
+                                    <td><p><input class="parse" id="rate" type="text" readonly/></p></td>
+                                    <td><p><input class="parse" id="task_sum" type="text" readonly/></p></td>
                                 </tr>
                             </tbody>
                         </table>
