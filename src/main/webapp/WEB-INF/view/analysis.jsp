@@ -16,8 +16,8 @@
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
         <style>
             .parse{
-                width:90px;
-                height:70px;
+                width:87%;
+                height: 70px;
                 background-color: #DEDEDE;
                 text-align: center;
                 border: 0;
@@ -110,21 +110,23 @@
                         </div>
                     </div>    
                     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-                    <div id="summ" class="col-9 card" style="background-color: #ffffff;opacity: .8;">
+                    <div id="summ" class="col-12 card" style="background-color: #ffffff;opacity: .8;">
                         <table class="table table-borderless" style=" align-items: center;text-align: center;">
                             <thead>
                                 <tr>
                                     <th>總任務數量</th>
                                     <th>平均任務數</th>
+                                    <th>總開機時數</th>
                                     <th>總工作時數</th>
                                     <th>平均工作時數</th>
                                     <th>平均稼動率</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style=" font-size: 25px">
+                                <tr style=" font-size: 1.5em">
                                     <td><p><input class="parse" type="text" id="task_sum" readonly/></p></td>
                                     <td><p><input class="parse" type="text" id="task" readonly/></p></td>
+                                    <td><p><input class="parse" type="text" id="open_sum" readonly/></p></td>
                                     <td><p><input class="parse" type="text" id="work_sum" readonly/></p></td>
                                     <td><p><input class="parse" type="text" id="work" readonly/></p></td>
                                     <td><p><input class="parse" type="text" id="rate" readonly/></p></td>
@@ -242,6 +244,7 @@
                 myChart.update();
                 document.getElementById("task_sum").value = task_sum;
                 document.getElementById("task").value = String((task_sum/x)*100).substring(0,2);
+                document.getElementById("open_sum").value = String(open_sum)+"hr";
                 document.getElementById("work_sum").value = String(work_sum)+"hr";
                 document.getElementById("work").value = String(work_sum/x).substring(0,4)+"hr";
                 document.getElementById("rate").value = String((work_sum/open_sum)*100).substring(0,2)+"%";
@@ -302,12 +305,14 @@
                 console.log(llen);
                 var task_sum = 0;
                 var rate_sum = 0;
+                var work_sum = 0;
                 var open_sum = 0;
                 for(let i=0;i<len;i++){
                     if(table.rows[i].innerHTML != ""){
                         task_sum += Number(table.rows[i].cells[1].innerHTML);
                         rate_sum += Number(String(table.rows[i].cells[2].innerHTML).replace("%",""));
-                        open_sum += Number(table.rows[i].cells[3].innerHTML);
+                        work_sum += Number(table.rows[i].cells[3].innerHTML);
+                        open_sum += Number(table.rows[i].cells[4].innerHTML);
                     }
                 }
                 console.log("task_sum: "+task_sum);
@@ -315,8 +320,9 @@
                 console.log("open_sum "+open_sum);
                 document.getElementById("task_sum").value = task_sum;
                 document.getElementById("task").value = String((task_sum/len)*100).substring(0,2);
-                document.getElementById("work_sum").value = String(open_sum)+"hr";
-                document.getElementById("work").value = String(open_sum/len).substring(0,4)+"hr";
+                document.getElementById("open_sum").value = String(open_sum)+"hr";
+                document.getElementById("work_sum").value = String(work_sum)+"hr";
+                document.getElementById("work").value = String(work_sum/len).substring(0,4)+"hr";
                 document.getElementById("rate").value = String(Math.round(rate_sum/len)).substring(0,2)+"%";
                 window.print();
                 window.location.reload();

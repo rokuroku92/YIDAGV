@@ -381,9 +381,9 @@
             </form>
             <br>
             <div class="row">
-<!--                <div class="col-12" style="padding: 8px;background-color: pink;height: 30px;">
+                <div class="col-12" style="padding: 8px;background-color: pink;height: 30px;">
                     <marquee><p id="message"><nobr>系統訊息:無錯誤</nobr></p></marquee>
-                </div>-->
+                </div>
             </div>
         <br>
     </body>
