@@ -236,155 +236,191 @@
             }
         </script>
     </head>
-    <body background="${pageContext.request.contextPath}/image/bgimg.jpg" style="padding: 20px;line-height: 10px;">
-        <img src="${pageContext.request.contextPath}/image/logo.png" alt="image error">
+    <!--<body background="${pageContext.request.contextPath}/image/bgimg.jpg" style="padding: 20px;line-height: 10px;">-->
+    <body style="padding: 0px;line-height: 10px; background-color: #f0f1f0;">
+        <img src="${pageContext.request.contextPath}/image/2023AGVS_UI_1280_800_top.png" alt="image error">
         <br>
         <span id="agv_car"></span>
-        <div class="container">
+        <div class="container" style=" max-width: 1280px;padding: 60px;padding-top: 0px;">
             <div class="row">
                 <img src="${pageContext.request.contextPath}/image/map.jpg" class="img-fluid" alt="image error">
             </div>
             <br>
             <div class="row justify-content-around">
-                <div class="col-auto card" style=" text-align: center;font-size: 10px">
-                    <fieldset>
-                        <legend style=" padding: 5px;font-size: 18px;">AGV 狀態</legend>
-                        <p>工作狀態：<input type="text" id="status" readonly style="text-align: center"/></p>
-                        <p>目前任務：<input type="text" id="task" readonly style="text-align: center"/></p>
-                        <p>即時位置：<input type="text" id="place" readonly style="text-align: center"/></p>
-                        <p>目前電壓：<input type="text" id="battery" readonly style="text-align: center"/></p>
-                    </fieldset>
-                </div>
-                <div class="col card" style=" text-align: center">
-                    <fieldset>
-                        <legend style=" padding: 5px;font-size: 18px;">任務佇列</legend>
-                        <div style="height: 150px;overflow: auto;">
-                            <table class="table table-hover" style=" font-size: 10px">
-                                <thead>
-                                    <tr>
-                                        <th><nobr>出發站</nobr></th>
-                                        <th><nobr>通知站</nobr></th>
-                                        <th><nobr>終點站</nobr></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="task_body">
-                                </tbody>
-                            </table>
+                <div class="col">
+                    <div class="row">
+                        <div class="col" style=" text-align: center;font-size: 10px;padding: 10px;">
+                            <div class="card" style=" height: 20.8em;">
+                                <fieldset>
+                                    <legend style=" padding: 5px;font-size: 18px;">
+                                        <img src="${pageContext.request.contextPath}/image/icon_5.png" alt="image error">
+                                        AGV 狀態
+                                    </legend>
+                                    <p>工作狀態：<input type="text" id="status" readonly style="text-align: center"/></p>
+                                    <p>目前任務：<input type="text" id="task" readonly style="text-align: center"/></p>
+                                    <p>即時位置：<input type="text" id="place" readonly style="text-align: center"/></p>
+                                    <p>目前電壓：<input type="text" id="battery" readonly style="text-align: center"/></p>
+                                </fieldset>
+                            </div>
                         </div>
-                    </fieldset>
-                </div>
-                <div class="col-6 card" style=" text-align: center">
-                    <fieldset>
-                        <legend style=" padding: 5px;font-size: 18px;">
-                            效益分析
-                            <a href="${pageContext.request.contextPath}/mvc/agv/analysis">
-                                <img style="float: right;" src="${pageContext.request.contextPath}/image/chart.png" title="統計圖表" border="0" width="40">
-                            </a>
-                        </legend>
-                        <table class="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th>總工作時數</th>
-                                    <th>總開機時數</th>
-                                    <th>稼動率</th>
-                                    <th>累積任務數</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style=" font-size: 25px">
-                                    <td><p><input class="parse" id="work_sum" type="text" readonly/></p></td>
-                                    <td><p><input class="parse" id="open_sum" type="text" readonly/></p></td>
-                                    <td><p><input class="parse" id="rate" type="text" readonly/></p></td>
-                                    <td><p><input class="parse" id="task_sum" type="text" readonly/></p></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!--<button class="btn btn-link" style=" height: 30px;" onclick='window.open("http://localhost:8080${pageContext.request.contextPath}/mvc/agv/analysis");'>查看圖表資訊</button>-->
-                    </fieldset>
+                        <div class="col" style=" text-align: center;padding: 10px;">
+                            <div class="card" style=" height: 13em;">
+                                <fieldset>
+                                    <legend style=" padding: 5px;font-size: 18px;">
+                                        <img src="${pageContext.request.contextPath}/image/icon_1.png" alt="image error">
+                                        任務佇列
+                                    </legend>
+                                    <div style="height: 150px;overflow: auto;">
+                                        <table class="table table-hover" style=" font-size: 10px">
+                                            <thead>
+                                                <tr>
+                                                    <th><nobr>出發站</nobr></th>
+                                                    <th><nobr>通知站</nobr></th>
+                                                    <th><nobr>終點站</nobr></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="task_body">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="col-6" style="text-align: center;padding: 10px;">
+                            <div class="card" style="align-items: center;height: 13em;">
+                                <fieldset style=" width: 100%;">
+                                    <legend style=" padding-top: 5px;font-size: 18px; margin: 0px;">
+                                        <img src="${pageContext.request.contextPath}/image/icon_2.png" alt="image error">
+                                        出發站
+                                    </legend>
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <td><button type="button" class="st btn" id="1-1" onclick="setfromStationNo(1011)"><nobr>1-1</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="1-2" onclick="setfromStationNo(1012)"><nobr>1-2</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="1-3" onclick="setfromStationNo(1013)"><nobr>1-3</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="1-4" onclick="setfromStationNo(1014)"><nobr>1-4</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="1-5" onclick="setfromStationNo(1015)"><nobr>1-5</nobr></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><button type="button" class="st btn" id="2-1" onclick="setfromStationNo(1021)"><nobr>2-1</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="2-2" onclick="setfromStationNo(1022)"><nobr>2-2</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="2-3" onclick="setfromStationNo(1023)"><nobr>2-3</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="2-4" onclick="setfromStationNo(1024)"><nobr>2-4</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="2-5" onclick="setfromStationNo(1025)"><nobr>2-5</nobr></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><button type="button" class="st btn" id="3-1" onclick="setfromStationNo(1031)"><nobr>3-1</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="3-2" onclick="setfromStationNo(1032)"><nobr>3-2</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="3-3" onclick="setfromStationNo(1033)"><nobr>3-3</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="3-4" onclick="setfromStationNo(1034)"><nobr>3-4</nobr></button></td>
+                                            <td><button type="button" class="st btn" id="3-5" onclick="setfromStationNo(1035)"><nobr>3-5</nobr></button></td>
+                                        </tr>
+                                    </table>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style=" text-align: center;padding: 10px;">
+                            <div class="card">
+                                <fieldset>
+                                    <legend style=" padding: 5px;font-size: 18px;">
+                                        <img src="${pageContext.request.contextPath}/image/icon_3.png" alt="image error">
+                                        效益分析
+                                        <a href="${pageContext.request.contextPath}/mvc/agv/analysis">
+                                            <img style="float: right;" src="${pageContext.request.contextPath}/image/chart.png" title="統計圖表" border="0" width="40">
+                                        </a>
+                                    </legend>
+                                    <table class="table table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th>總工作時數</th>
+                                                <th>總開機時數</th>
+                                                <th>稼動率</th>
+                                                <th>累積任務數</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style=" font-size: 25px;">
+                                                <td><p><input style="color: blue;" class="parse" id="work_sum" type="text" readonly/></p></td>
+                                                <td><p><input style="color: blue;" class="parse" id="open_sum" type="text" readonly/></p></td>
+                                                <td><p><input style="color: blue;" class="parse" id="rate" type="text" readonly/></p></td>
+                                                <td><p><input style="color: blue;" class="parse" id="task_sum" type="text" readonly/></p></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--<button class="btn btn-link" style=" height: 30px;" onclick='window.open("http://localhost:8080${pageContext.request.contextPath}/mvc/agv/analysis");'>查看圖表資訊</button>-->
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="col-6" style="text-align: center;padding: 10px;">
+                            <div class="card" style=" align-items: center; height: 13em;">
+                                <fieldset style=" width: 100%;">
+                                    <legend style=" padding-top: 5px;font-size: 18px; margin: 0px;">
+                                        <img src="${pageContext.request.contextPath}/image/icon_4.png" alt="image error">
+                                        通知站
+                                    </legend>
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <td><button type="button" class="st1 btn btn-info" id="PCB測試" onclick="setServiceNo(1511)"><nobr>PCB測試</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="PCB外線" onclick="setServiceNo(1512)"><nobr>PCB外線</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="PCB外AOI" onclick="setServiceNo(1513)"><nobr>PCB外AOI</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="PCB網印" onclick="setServiceNo(1514)"><nobr>PCB網印</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="CNC二廠" onclick="setServiceNo(1515)"><nobr>CNC二廠</nobr></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><button type="button" class="st1 btn btn-info" id="FQC" onclick="setServiceNo(1521)"><nobr>FQC</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="BGA整面C" onclick="setServiceNo(1522)"><nobr>BGA整面C</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="棕化" onclick="setServiceNo(1523)"><nobr>棕化</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="內層線路" onclick="setServiceNo(1524)"><nobr>內層線路</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="Suep" onclick="setServiceNo(1525)"><nobr>Suep</nobr></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><button type="button" class="st1 btn btn-info" id="FVI" onclick="setServiceNo(1531)"><nobr>FVI</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="PCB噴塗" onclick="setServiceNo(1532)"><nobr>PCB噴塗</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="BGA整面A" onclick="setServiceNo(1533)"><nobr>BGA整面A</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="CNC一廠" onclick="setServiceNo(1534)"><nobr>CNC一廠</nobr></button></td>
+                                            <td><button type="button" class="st1 btn btn-info" id="Routing" onclick="setServiceNo(1535)"><nobr>Routing</nobr></button></td>
+                                        </tr>
+                                    </table>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        <br>
-        <div class="alert alert-danger hidden" role="alert">
-            系統訊息:
-        </div>
-            <form>
-                <div class="row justify-content-around">
-                    <div class="col card" style=" align-items: center;background-color: #DEDEDE;text-align: center;">
-                        <fieldset>
-                            <legend style=" padding: 5px;font-size: 18px;">出發站</legend>
-                            <table class="table row table-borderless">
-                                <tr>
-                                    <td><button type="button" class="st btn" id="1-1" onclick="setfromStationNo(1011)"><nobr>1-1</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="1-2" onclick="setfromStationNo(1012)"><nobr>1-2</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="1-3" onclick="setfromStationNo(1013)"><nobr>1-3</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="1-4" onclick="setfromStationNo(1014)"><nobr>1-4</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="1-5" onclick="setfromStationNo(1015)"><nobr>1-5</nobr></button></td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="st btn" id="2-1" onclick="setfromStationNo(1021)"><nobr>2-1</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="2-2" onclick="setfromStationNo(1022)"><nobr>2-2</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="2-3" onclick="setfromStationNo(1023)"><nobr>2-3</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="2-4" onclick="setfromStationNo(1024)"><nobr>2-4</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="2-5" onclick="setfromStationNo(1025)"><nobr>2-5</nobr></button></td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="st btn" id="3-1" onclick="setfromStationNo(1031)"><nobr>3-1</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="3-2" onclick="setfromStationNo(1032)"><nobr>3-2</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="3-3" onclick="setfromStationNo(1033)"><nobr>3-3</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="3-4" onclick="setfromStationNo(1034)"><nobr>3-4</nobr></button></td>
-                                    <td><button type="button" class="st btn" id="3-5" onclick="setfromStationNo(1035)"><nobr>3-5</nobr></button></td>
-                                </tr>
-                            </table>
-                        </fieldset>
-                    </div>
-                    
-                    <div class="col card" style=" align-items: center;background-color: #DEDEDE;text-align: center;">
-                        <fieldset>
-                            <legend style=" padding: 5px;font-size: 18px;">通知站</legend>
-                            <table class="table row table-borderless">
-                                <tr>
-                                    <td><button type="button" class="st1 btn btn-info" id="PCB測試" onclick="setServiceNo(1511)"><nobr>PCB測試</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="PCB外線" onclick="setServiceNo(1512)"><nobr>PCB外線</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="PCB外AOI" onclick="setServiceNo(1513)"><nobr>PCB外AOI</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="PCB網印" onclick="setServiceNo(1514)"><nobr>PCB網印</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="CNC二廠" onclick="setServiceNo(1515)"><nobr>CNC二廠</nobr></button></td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="st1 btn btn-info" id="FQC" onclick="setServiceNo(1521)"><nobr>FQC</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="BGA整面C" onclick="setServiceNo(1522)"><nobr>BGA整面C</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="棕化" onclick="setServiceNo(1523)"><nobr>棕化</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="內層線路" onclick="setServiceNo(1524)"><nobr>內層線路</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="Suep" onclick="setServiceNo(1525)"><nobr>Suep</nobr></button></td>
-                                </tr>
-                                <tr>
-                                    <td><button type="button" class="st1 btn btn-info" id="FVI" onclick="setServiceNo(1531)"><nobr>FVI</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="PCB噴塗" onclick="setServiceNo(1532)"><nobr>PCB噴塗</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="BGA整面A" onclick="setServiceNo(1533)"><nobr>BGA整面A</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="CNC一廠" onclick="setServiceNo(1534)"><nobr>CNC一廠</nobr></button></td>
-                                    <td><button type="button" class="st1 btn btn-info" id="Routing" onclick="setServiceNo(1535)"><nobr>Routing</nobr></button></td>
-                                </tr>
-                            </table>
-                        </fieldset>
-                    </div>
-                </div>
-                <div class="row card" style=" align-items: center;background-color: #DEDEDE;border: 20px;">
-                    <br>
-                    <p>
-                    出發站：<input id="ststationText" type="text" readonly style="text-align: center"/>
-                            <input id="ststation" type="hidden"/>
-                    通知站：<input id="noticestationText" type="text" readonly style="text-align: center"/>
-                            <input id="noticestation" type="hidden" />
-                    <input type="button" class="btn btn-primary" value="確認" onclick="subm()">
-                    <input type="button" class="btn btn-primary" value="清除" onclick="cn()"></p>
-                    
-                </div>
-            </form>
             <br>
-            <div class="row">
-                <div class="col-12" style="padding: 8px;background-color: pink;height: 30px;">
-                    <marquee><p id="message"><nobr>系統訊息:無錯誤</nobr></p></marquee>
+            <div class="row" style="border: 20px;">
+                <div class="col-6" style=" padding: 10px; padding-top: 0px;">
+                    <div class="card" style="height: 1.8em;padding-top: 2px;">
+                        <input id="stytemMessage" type="text" value="系統訊息:" readonly style="text-align: left; border: none;"/>
+                    </div>
+                </div>
+                <div class="col-4" style=" padding-left: 40px;padding-top: 0px;height: ">
+                    <div class="row" style=" display: flex;align-items: center">
+                        出發站：
+                        <div class="card" style=" width: 30%;height: 1.8em;padding-top: 2px;">
+                            <input id="ststationText" type="text" readonly size="11" style="text-align: center; border: none;"/>
+                        </div>
+                        <input id="ststation" type="hidden"/>
+                        &nbsp;&nbsp;
+                        通知站：
+                        <div class="card" style=" width: 30%;height: 1.8em;padding-top: 2px;">
+                            <input id="noticestationText" type="text" readonly size="11" style="text-align: center; border: none;"/>
+                        </div>
+                        <input id="noticestation" type="hidden" />
+                    </div>
+                </div>
+                <div class="col-2">
+                    <input type="button" class="btn btn-yid" value="確認" onclick="subm()">
+                    &nbsp;
+                    <input type="button" class="btn btn-yid" value="清除" onclick="cn()">
                 </div>
             </div>
-        <br>
+            <br>
+            <footer style="text-align: center">
+                元創智動股份有限公司版權所有  TEL:02-26087894 Email:sales@yid.com.tw
+            </footer>
+        </div>
     </body>
 </html>
