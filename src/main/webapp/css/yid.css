@@ -83,4 +83,8 @@
     display: inline;
     line-height: 10px;
 }
-
+.notice{
+    margin: 0px;
+    font-size: 10px;
+    padding-top: 1px;
+}

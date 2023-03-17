@@ -25,6 +25,7 @@
         <script>
             var xhr = new XMLHttpRequest();
             var baseUrl = '${pageContext.request.contextPath}/mvc';
+            const station_list = ["PCB測試", "PCB外線", "PCB外AOI", "PCB網印", "CNC二廠", "FQC", "BGA整面C", "棕化", "內層線路", "Suep", "FVI", "PCB噴塗", "BGA整面A", "CNC一廠", "Routing"];
 
             window.onload = function(){
                 getData();
@@ -51,7 +52,7 @@
                     if(xhr.status == 200){
                         var data = JSON.parse(this.responseText);
                         console.log(data);
-                        test(data);
+                        countRate(data);
                     }
                 };
             }
@@ -115,10 +116,12 @@
                             "<path d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z\"/>"+
                             "<path fill-rule=\"evenodd\" d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z\"/>"+
                             "</svg></button>";  // evenodd
+                    document.getElementById(String(data.tasks[i].end_station)+"b").innerHTML = station_list[data.tasks[i].notice_station-1];
+//                    console.log(data.tasks[i].notice_station);
                 }
                 // 更改站點按鈕顏色
-                for(var i=1;i<4;i++){
-                    for(var j=1;j<6;j++){
+                for(let i=1;i<4;i++){
+                    for(let j=1;j<6;j++){
                         let n = "s" + String(i)+String(j);
                         let m = String(i)+"-"+String(j);
                         switch (data.station[n]) {
@@ -143,7 +146,14 @@
             }
 
             function setfromStationNo(no) {
-                document.getElementById('ststation').value = no;
+                if(no<1020){
+                    document.getElementById('ststation').value = 1001;
+                }else if(no>1020&&no<1030){
+                    document.getElementById('ststation').value = 1007;
+                }else{
+                    document.getElementById('ststation').value = 1010;
+                }
+//                document.getElementById('ststation').value = no;
                 var noText  = '';
                 for(let i=1;i<4;i++){
                     for(let j=1;j<6;j++){
@@ -155,7 +165,14 @@
             }
 
             function setServiceNo(no) {
-                document.getElementById('noticestation').value = no;
+                if(no<1520){
+                    document.getElementById('noticestation').value = 1501;
+                }else if(no>1520&&no<1530){
+                    document.getElementById('noticestation').value = 1507;
+                }else{
+                    document.getElementById('noticestation').value = 1010;
+                }
+//                document.getElementById('noticestation').value = no;
                 var noText  = '';
                 switch(no) {
                     case 1511:
@@ -210,6 +227,16 @@
             function subm(){
             //                alert("http://192.168.1.246:20100/task0=1&1&"+ststation+"&"+noticestation+"&"+ststation);
                 alert("開始站: " + document.getElementById('ststation').value +", 通知站: "+ document.getElementById('noticestation').value);
+//                window.open("http://192.168.1.143:20100/task0=1&7&"+document.getElementById('ststation').value+"&"+document.getElementById('noticestation').value);
+                xhr.open('GET', "http://192.168.1.143:20100/task0=1&7&"+document.getElementById('ststation').value+"&"+document.getElementById('noticestation').value, true);
+                xhr.send();
+                xhr.onload = function(){
+                    if(xhr.status == 200){
+                        console.log("kgkkmgtkkttt");沒進入!
+                        var data = this.responseText;
+                        alert(data);
+                    }
+                };
             };
             // 清除按鈕
             function cn(){
@@ -218,7 +245,7 @@
                 document.getElementById("noticestation").value = "";
                 document.getElementById("noticestationText").value = "";
             }
-            function test(data) {
+            function countRate(data) {
                 var task_sum = 0;
                 var work_sum = 0;
                 var open_sum = 0;
@@ -238,18 +265,19 @@
     </head>
     <!--<body background="${pageContext.request.contextPath}/image/bgimg.jpg" style="padding: 20px;line-height: 10px;">-->
     <body style="padding: 0px;line-height: 10px; background-color: #f0f1f0;">
-        <img src="${pageContext.request.contextPath}/image/2023AGVS_UI_1280_800_top.png" alt="image error">
+        <img src="${pageContext.request.contextPath}/image/2023AGVS_UI_1280_800_top_20230223.png" alt="image error" style="max-width:100%;">
         <br>
         <span id="agv_car"></span>
         <div class="container" style=" max-width: 1280px;padding: 60px;padding-top: 0px;">
-            <div class="row">
-                <img src="${pageContext.request.contextPath}/image/map.jpg" class="img-fluid" alt="image error">
+            <div class="row" style="padding: 5px; padding-top: 10px">
+                <div class="col card">
+                    <img src="${pageContext.request.contextPath}/image/map.png" class="img-fluid" alt="image error">
+                </div>
             </div>
-            <br>
             <div class="row justify-content-around">
                 <div class="col">
                     <div class="row">
-                        <div class="col" style=" text-align: center;font-size: 10px;padding: 10px;">
+                        <div class="col" style=" text-align: center;font-size: 10px;padding: 5px;">
                             <div class="card" style=" height: 20.8em;">
                                 <fieldset>
                                     <legend style=" padding: 5px;font-size: 18px;">
@@ -263,7 +291,7 @@
                                 </fieldset>
                             </div>
                         </div>
-                        <div class="col" style=" text-align: center;padding: 10px;">
+                        <div class="col" style=" text-align: center;padding: 5px;">
                             <div class="card" style=" height: 13em;">
                                 <fieldset>
                                     <legend style=" padding: 5px;font-size: 18px;">
@@ -286,7 +314,7 @@
                                 </fieldset>
                             </div>
                         </div>
-                        <div class="col-6" style="text-align: center;padding: 10px;">
+                        <div class="col-6" style="text-align: center;padding: 5px;">
                             <div class="card" style="align-items: center;height: 13em;">
                                 <fieldset style=" width: 100%;">
                                     <legend style=" padding-top: 5px;font-size: 18px; margin: 0px;">
@@ -295,25 +323,25 @@
                                     </legend>
                                     <table class="table table-borderless">
                                         <tr>
-                                            <td><button type="button" class="st btn" id="1-1" onclick="setfromStationNo(1011)"><nobr>1-1</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="1-2" onclick="setfromStationNo(1012)"><nobr>1-2</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="1-3" onclick="setfromStationNo(1013)"><nobr>1-3</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="1-4" onclick="setfromStationNo(1014)"><nobr>1-4</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="1-5" onclick="setfromStationNo(1015)"><nobr>1-5</nobr></button></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="1-1" onclick="setfromStationNo(1011)"><nobr>1-1</nobr></button><p class="notice" id="1001b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="1-2" onclick="setfromStationNo(1012)"><nobr>1-2</nobr></button><p class="notice" id="1002b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="1-3" onclick="setfromStationNo(1013)"><nobr>1-3</nobr></button><p class="notice" id="1003b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="1-4" onclick="setfromStationNo(1014)"><nobr>1-4</nobr></button><p class="notice" id="1004b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="1-5" onclick="setfromStationNo(1015)"><nobr>1-5</nobr></button><p class="notice" id="1005b"></p></td>
                                         </tr>
                                         <tr>
-                                            <td><button type="button" class="st btn" id="2-1" onclick="setfromStationNo(1021)"><nobr>2-1</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="2-2" onclick="setfromStationNo(1022)"><nobr>2-2</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="2-3" onclick="setfromStationNo(1023)"><nobr>2-3</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="2-4" onclick="setfromStationNo(1024)"><nobr>2-4</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="2-5" onclick="setfromStationNo(1025)"><nobr>2-5</nobr></button></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="2-1" onclick="setfromStationNo(1021)"><nobr>2-1</nobr></button><p class="notice" id="1006b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="2-2" onclick="setfromStationNo(1022)"><nobr>2-2</nobr></button><p class="notice" id="1007b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="2-3" onclick="setfromStationNo(1023)"><nobr>2-3</nobr></button><p class="notice" id="1008b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="2-4" onclick="setfromStationNo(1024)"><nobr>2-4</nobr></button><p class="notice" id="1009b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="2-5" onclick="setfromStationNo(1025)"><nobr>2-5</nobr></button><p class="notice" id="1010b"></p></td>
                                         </tr>
                                         <tr>
-                                            <td><button type="button" class="st btn" id="3-1" onclick="setfromStationNo(1031)"><nobr>3-1</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="3-2" onclick="setfromStationNo(1032)"><nobr>3-2</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="3-3" onclick="setfromStationNo(1033)"><nobr>3-3</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="3-4" onclick="setfromStationNo(1034)"><nobr>3-4</nobr></button></td>
-                                            <td><button type="button" class="st btn" id="3-5" onclick="setfromStationNo(1035)"><nobr>3-5</nobr></button></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="3-1" onclick="setfromStationNo(1031)"><nobr>3-1</nobr></button><p class="notice" id="1011b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="3-2" onclick="setfromStationNo(1032)"><nobr>3-2</nobr></button><p class="notice" id="1012b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="3-3" onclick="setfromStationNo(1033)"><nobr>3-3</nobr></button><p class="notice" id="1013b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="3-4" onclick="setfromStationNo(1034)"><nobr>3-4</nobr></button><p class="notice" id="1014b"></p></td>
+                                            <td style=" padding-top: 2px;padding-bottom: 2px;"><button type="button" class="st btn" id="3-5" onclick="setfromStationNo(1035)"><nobr>3-5</nobr></button><p class="notice" id="1015b"></p></td>
                                         </tr>
                                     </table>
                                 </fieldset>
@@ -321,7 +349,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style=" text-align: center;padding: 10px;">
+                        <div class="col" style=" text-align: center;padding: 5px;">
                             <div class="card">
                                 <fieldset>
                                     <legend style=" padding: 5px;font-size: 18px;">
@@ -353,7 +381,7 @@
                                 </fieldset>
                             </div>
                         </div>
-                        <div class="col-6" style="text-align: center;padding: 10px;">
+                        <div class="col-6" style="text-align: center;padding: 5px;">
                             <div class="card" style=" align-items: center; height: 13em;">
                                 <fieldset style=" width: 100%;">
                                     <legend style=" padding-top: 5px;font-size: 18px; margin: 0px;">
@@ -389,14 +417,13 @@
                     </div>
                 </div>
             </div>
-            <br>
             <div class="row" style="border: 20px;">
-                <div class="col-6" style=" padding: 10px; padding-top: 0px;">
+                <div class="col-6" style=" padding: 5px;">
                     <div class="card" style="height: 1.8em;padding-top: 2px;">
                         <input id="stytemMessage" type="text" value="系統訊息:" readonly style="text-align: left; border: none;"/>
                     </div>
                 </div>
-                <div class="col-4" style=" padding-left: 40px;padding-top: 0px;height: ">
+                <div class="col-4" style=" padding: 5px;padding-left: 30px;">
                     <div class="row" style=" display: flex;align-items: center">
                         出發站：
                         <div class="card" style=" width: 30%;height: 1.8em;padding-top: 2px;">
@@ -411,7 +438,7 @@
                         <input id="noticestation" type="hidden" />
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-2" style=" padding: 5px;padding-left: 10px;">
                     <input type="button" class="btn btn-yid" value="確認" onclick="subm()">
                     &nbsp;
                     <input type="button" class="btn btn-yid" value="清除" onclick="cn()">

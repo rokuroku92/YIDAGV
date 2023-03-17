@@ -14,6 +14,8 @@
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        
         <style>
             .parse{
                 width:87%;
@@ -36,81 +38,101 @@
             .btnt:hover{
                 color: red;
             }
+            .btn-yid{
+                --bs-btn-disabled-opacity:1;
+                --bs-btn-bg:#93ba55;
+                --bs-btn-border-color:#93ba55;
+                --bs-btn-hover-bg:#89b04b;
+                --bs-btn-hover-border-color:#89b04b;
+                --bs-btn-active-bg:#6b922d;
+                --bs-btn-active-border-color:#6b922d;
+                color: white;
+            }
         </style>
         
         
         
     </head>
-    <body onload="init()" background="${pageContext.request.contextPath}/image/bgimg.jpg" style="padding: 20px;line-height: 10px;">
-        <a href="${pageContext.request.contextPath}/mvc/agv/">
-            <img src="${pageContext.request.contextPath}/image/logo.png" alt="image error" border="0">
-        </a>
-        <div class="container-fluid">
+    <body onload="init()" style="padding: 0px;line-height: 10px;">
+        <img src="${pageContext.request.contextPath}/image/2023AGVS_UI_1280_800_top_20230223.png" alt="image error" style="max-width:100%;">
+        <div class="container-fluid" style="padding: 20px;padding-left: 40px;padding-right: 40px;padding-bottom: 0px;">
             <div class="row">
-                <main class="col-md-9 col-lg-10 px-md-4">
-                    <div class="my-4 w-50">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-primary" onclick="reSet('recently')">最近兩週</button>
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                  月
-                                </button>
-                                <ul id="yearsandmonths" class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                </ul>
-                            </div>
+                <div class="col">
+                    <img src="${pageContext.request.contextPath}/image/icon_3.png" alt="image error">
+                    <font size="4">效益分析</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-primary" onclick="reSet('recently')">最近兩週</button>
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                              月
+                            </button>
+                            <ul id="yearsandmonths" class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            </ul>
                         </div>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            列印表單
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="myexcel()">
-                            匯出成Excel
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">確認列印表單</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        列印表單
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="myexcel()">
+                        匯出成Excel
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">確認列印表單</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="printt">
+                                        <img src="${pageContext.request.contextPath}/image/logo.png" alt="image error" border="0" id="logog">
+                                        <table id="va" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">日期</th>
+                                                    <th scope="col">任務數</th>
+                                                    <th scope="col">稼動率</th>
+                                                    <th scope="col">工作時數</th>
+                                                    <th scope="col">開機時數</th>
+                                                    <th>
+                                                        <input type="checkbox" id="checkAll" checked/>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="pt">
+                                            </tbody>
+                                      </table>
                                     </div>
-                                    <div class="modal-body">
-                                        <div id="printt">
-                                            <img src="${pageContext.request.contextPath}/image/logo.png" alt="image error" border="0" id="logog">
-                                            <table id="va" class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">日期</th>
-                                                        <th scope="col">任務數</th>
-                                                        <th scope="col">稼動率</th>
-                                                        <th scope="col">工作時數</th>
-                                                        <th scope="col">開機時數</th>
-                                                        <th>
-                                                            <input type="checkbox" id="checkAll" checked/>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="pt">
-                                                </tbody>
-                                          </table>
-                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div>
+                                        <input type="checkbox" id="cancelweekend">
+                                        <label for="cancelweekend">
+                                            取消選取六日
+                                        </label>
                                     </div>
-                                    <div class="modal-footer">
-                                        <div>
-                                            <input type="checkbox" id="cancelweekend">
-                                            <label for="cancelweekend">
-                                                取消選取六日
-                                            </label>
-                                        </div>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                                        <button type="button" class="btn btn-primary" onclick="printOut()">列印</button>
-                                    </div>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                    <button type="button" class="btn btn-primary" onclick="printOut()">列印</button>
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
+                    <a href="${pageContext.request.contextPath}/mvc/agv/" style=" float: right">
+                        <input type="button" class="btn btn-yid" value="返回主畫面">
+                    </a>
+                </div>
+            </div>
+            <div class="row" style=" justify-content: center">
+                <div class="col-10">
                     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-                    <div id="summ" class="col-12 card" style="background-color: #ffffff;opacity: .8;">
+                </div>
+            </div>
+            <hr size="4px" align="center" width="100%">
+            <div class="row" style=" justify-content: center">
+                <div class="col">
+                    <div id="summ" class="col-12" style="background-color: #ffffff;opacity: .8;">
                         <table class="table table-borderless" style=" align-items: center;text-align: center;">
                             <thead>
                                 <tr>
@@ -124,19 +146,22 @@
                             </thead>
                             <tbody>
                                 <tr style=" font-size: 1.5em">
-                                    <td><p><input class="parse" type="text" id="task_sum" readonly/></p></td>
-                                    <td><p><input class="parse" type="text" id="task" readonly/></p></td>
-                                    <td><p><input class="parse" type="text" id="open_sum" readonly/></p></td>
-                                    <td><p><input class="parse" type="text" id="work_sum" readonly/></p></td>
-                                    <td><p><input class="parse" type="text" id="work" readonly/></p></td>
-                                    <td><p><input class="parse" type="text" id="rate" readonly/></p></td>
+                                    <td><p><input style="color: blue;" class="parse" type="text" id="task_sum" readonly/></p></td>
+                                    <td><p><input style="color: blue;" class="parse" type="text" id="task" readonly/></p></td>
+                                    <td><p><input style="color: blue;" class="parse" type="text" id="open_sum" readonly/></p></td>
+                                    <td><p><input style="color: blue;" class="parse" type="text" id="work_sum" readonly/></p></td>
+                                    <td><p><input style="color: blue;" class="parse" type="text" id="work" readonly/></p></td>
+                                    <td><p><input style="color: blue;" class="parse" type="text" id="rate" readonly/></p></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </main>
+                </div>
             </div>
         </div>
+        <footer style="text-align: center">
+            元創智動股份有限公司版權所有  TEL:02-26087894 Email:sales@yid.com.tw
+        </footer>
         <!-- JavaScript Bundle with Popper -->
         <script src="${pageContext.request.contextPath}/js/jquery-3.4.1.slim.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
