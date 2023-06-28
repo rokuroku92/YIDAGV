@@ -39,14 +39,13 @@ public class AgvController {
         agv.removeTaskById(id);
         return "ok";
     }
-    /*
     static int tempId;
     @GetMapping(value = "/json")
     @ResponseBody
     public String getJson() { 
         if(agv != null){
-//            Place place = new Place(1001+tempId++%10);
-            Place place = new Place(1001);
+            Place place = new Place(1001+tempId++%10);
+//            Place place = new Place(1001);
             Station station = new Station((tempId+2)%4,(tempId+1)%4,(tempId+0)%4,(tempId+2)%4,(tempId+1)%4,(tempId+3)%4,(tempId+2)%4,(tempId+0)%4,
                 (tempId+1)%4,(tempId+0)%4,(tempId+0)%4,(tempId+1)%4,(tempId+3)%4,(tempId+0)%4,(tempId+1)%4);
             agv.setStation(station);
@@ -74,7 +73,7 @@ public class AgvController {
         System.out.println(jsonString);
         return jsonString;
     }
-    */
+    /*
     static int tempId;
     @GetMapping(value = "/json")
     @ResponseBody
@@ -117,4 +116,5 @@ public class AgvController {
         System.out.println(jsonString);
         return jsonString;
     }
+    */
 }

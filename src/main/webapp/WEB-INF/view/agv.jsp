@@ -232,7 +232,7 @@
                 xhr.send();
                 xhr.onload = function(){
                     if(xhr.status == 200){
-                        console.log("kgkkmgtkkttt");沒進入!
+                        console.log("kgkkmgtkkttt");// 沒進入!
                         var data = this.responseText;
                         alert(data);
                     }
